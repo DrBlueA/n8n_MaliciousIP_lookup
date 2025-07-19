@@ -1,0 +1,298 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "ip",
+              "value": "={{ $json.body.context.ip }}"
+            },
+            {
+              "name": "userAgent",
+              "value": "={{ $json.body.context.userAgent }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ $json.body.originalTimestamp }}"
+            },
+            {
+              "name": "url",
+              "value": "={{ $json.body.context.page.url }}"
+            },
+            {
+              "name": "userId",
+              "value": "={{ $json.body.userId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "55cfca74-7107-4162-a560-a721736572ef",
+      "name": "Extract relevant data",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        112,
+        1600
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "705ca4c4-0a38-4ef8-9de9-abc8b3686dc6",
+        "options": {}
+      },
+      "id": "458246e7-99ba-4412-acac-ad20fc20e9ed",
+      "name": "New /login event",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        -368,
+        1600
+      ],
+      "webhookId": "705ca4c4-0a38-4ef8-9de9-abc8b3686dc6",
+      "typeVersion": 1,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## 📢 Slack Notification for Alert Dissemination\n\nThe `Slack` node sends real-time alerts to your security team when a suspicious login is detected. It integrates with Slack to provide clear, contextual notifications using data from upstream nodes.\n\n### 🔔 Key Functions\n\n- **Immediate Alerts**  \n  Sends messages to a specified Slack channel including IP address, user ID, timestamp, user agent, and risk level, enabling prompt response.\n\n- **Enriched Context**  \n  Leverages data from nodes like `Extract relevant data` to populate each alert with detailed information about the login attempt.\n\n- **Threat Intelligence Integration**  \n  Includes a direct link to the IP reputation (e.g., via MaliciousIP.com), allowing analysts to quickly investigate suspicious IPs.\n\nThis setup ensures timely visibility and empowers security teams to act swiftly using structured, actionable alerts directly in Slack.\n",
+        "height": 531,
+        "width": 560
+      },
+      "id": "da719181-090e-4921-a338-0c67d0590ff3",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1840,
+        752
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "f33534dc-aaf6-4500-aa70-89a9ebcf16e4",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -368,
+        1792
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  json:\n  {\n    \"headers\": {\n      \"host\": \"internal.users.n8n.cloud\",\n      \"user-agent\": \"PostmanRuntime/7.32.3\",\n      \"content-length\": \"857\",\n      \"accept\": \"*/*\",\n      \"accept-encoding\": \"gzip, deflate, br\",\n      \"content-type\": \"application/json\",\n      \"postman-token\": \"e10e747f-0668-4238-9a3d-148b2c8591da\",\n      \"x-forwarded-for\": \"10.255.0.2\",\n      \"x-forwarded-host\": \"internal.users.n8n.cloud\",\n      \"x-forwarded-port\": \"443\",\n      \"x-forwarded-proto\": \"https\",\n      \"x-forwarded-server\": \"e591fa1c2d01\",\n      \"x-real-ip\": \"10.255.0.2\"\n    },\n    \"params\": {},\n    \"query\": {},\n    \"body\": {\n      \"anonymousId\": \"b4191c58-7d64-4c93-8bb4-479c3c95d283\",\n      \"context\": {\n        \"ip\": \"34.78.6.216\",\n        \"library\": {\n          \"name\": \"analytics.js\",\n          \"version\": \"next-1.53.0\"\n        },\n        \"locale\": \"en-US\",\n        \"page\": {\n          \"path\": \"/login\",\n          \"referrer\": \"https://github.com/\",\n          \"search\": \"\",\n          \"title\": \"n8n.cloud\",\n          \"url\": \"https://stage-app.n8n.cloud/login\"\n        },\n        \"userAgent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/114.0\"\n      },\n      \"event\": \"User signed in\",\n      \"integrations\": {},\n      \"messageId\": \"ajs-next-a14f5b6e9860c7318a27f1ac05b3182d\",\n      \"originalTimestamp\": \"2023-06-28T11:26:46.302Z\",\n      \"properties\": {},\n      \"receivedAt\": \"2023-06-28T11:26:46.550Z\",\n      \"sentAt\": \"2023-06-28T11:26:46.313Z\",\n      \"timestamp\": \"2023-06-28T11:26:46.539Z\",\n      \"type\": \"track\",\n      \"userId\": \"staging-2055\"\n    }\n  }\n}"
+      },
+      "id": "c1a4f2ba-5678-4fa1-a558-609fe9bddc6a",
+      "name": "Example event",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        -96,
+        1792
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "content": "![webhook](https://i.imgur.com/D6SP9P0.png)\n\n## 🛡️ Workflow Overview: Real-Time Suspicious Login Detection\n\nThe `Suspicious Login Detection` workflow in n8n enables real-time monitoring, enrichment, and alerting of potentially malicious login attempts. It combines automation with contextual intelligence from MaliciousIP to help your team identify and respond to threats faster.\n\nDesigned for both operational use and testing, the workflow supports webhook triggers for live logins and manual triggers for debugging or simulations.\n\n🔗 **MaliciousIP API documentation**:  \n[https://documenter.getpostman.com/view/32449314/2sAYdZuZSn](https://documenter.getpostman.com/view/32449314/2sAYdZuZSn)\n[https://maliciousip.com/](https://maliciousip.com)\n\n---\n\n### 🔍 Key Features\n\n- **Structured Data Extraction**  \n  Captures and parses login data including IP address, user ID, timestamp, and user agent string.\n\n- **Three-Channel Enrichment Pipeline**  \n  Processes each login through:\n  - MaliciousIP’s `GetIPReputation` for real-time threat scoring and TTPs\n  - `IP-API` for geolocation and regional anomaly checks\n  - `UserParser` for user-agent fingerprinting\n\n- **Risk-Based Alerting**  \n  Assigns threat levels based on MaliciousIP threat score. High-risk logins are pushed to Slack with contextual metadata for rapid triage.\n\n- **Historical Correlation**  \n  Checks login patterns against prior behavior to identify suspicious anomalies such as sudden location changes or new devices.\n\n---\n\n### ⚙️ Triggering the Workflow\n\nThe workflow is initiated via:\n- A `Webhook` node that listens for incoming `/login` events from your application\n- A `Manual Trigger` node used during development or testing\n\nOnce triggered, the login payload is parsed by the `Extract relevant data` node, which prepares it for parallel enrichment and prioritization.\n\n---\n\nThis n8n workflow showcases how to operationalize threat intelligence using the MaliciousIP API, transforming raw login data into actionable alerts with zero coding required.\n",
+        "height": 1352,
+        "width": 795
+      },
+      "id": "98a7c95d-96c7-474f-bb12-128ff3fc5598",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -512,
+        224
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "=https://api.snare.lupovis.io/data/GetIPReputation?ip={{$json[\"ip\"]}}&code={{KEY}}",
+        "options": {}
+      },
+      "name": "MaliciousIP Check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        720,
+        1136
+      ],
+      "id": "fd8c6806-33d9-4e72-9026-2b7352b11ceb"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json[\"threatScore\"]}}",
+              "operation": "larger"
+            }
+          ]
+        }
+      },
+      "name": "Is Malicious?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        1008
+      ],
+      "id": "8a424091-3b42-467e-8271-b12b4d9e51c9"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Is this IP  {{ $json.ip }} malicious based on the data obtained? such as the ttps \n{{ $json.ttps }}, the cves {{ $json.cves }},the asn{{ $json.asnData }},geo data {{ $json.geoData }},and a threat score{{ $json.threatScore }}\nnote that if only an IP is provided, the information is not malicious, say it in a funny way. However, if an IP is shown as malicious, we should recommend to block it or do some other siem/soar automation.",
+        "messages": {
+          "messageValues": [
+            {
+              "type": "=AIMessagePromptTemplate",
+              "message": "If the data is empty and only an IP is shown then it's not malicious"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1440,
+        944
+      ],
+      "id": "7c5d100a-be58-49ae-8aad-91e1220992c9",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1440,
+        1168
+      ],
+      "id": "6f4fbfb0-16ad-44d8-b36c-a150bd013e1d",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "d52tOMCyNCy9T0Pl",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Example event": {
+      "main": [
+        [
+          {
+            "node": "Extract relevant data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New /login event": {
+      "main": [
+        [
+          {
+            "node": "Extract relevant data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract relevant data": {
+      "main": [
+        [
+          {
+            "node": "MaliciousIP Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Example event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MaliciousIP Check": {
+      "main": [
+        [
+          {
+            "node": "Is Malicious?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Malicious?": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "587445ea-64a7-4ec1-89e5-c2ac93ae64cf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b77997efceece4f71f75495b6e96671f19c9cdd0d13ad65abd77a57322dda238"
+  },
+  "id": "Miiv7iT5kO8oELhf",
+  "tags": []
+}
