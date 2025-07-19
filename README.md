@@ -36,6 +36,11 @@ This n8n workflow is designed to detect and enrich suspicious login activity in 
 
 Once triggered, the flow continues with data parsing, enrichment, risk evaluation, and AI summarization. Alerts can be extended with Slack, email, or SOAR integrations as needed.
 
+## 🧭 Workflow Overview
+
+![Workflow Diagram](./workflow.png)
+
+
 ---
 
 This setup demonstrates how n8n and MaliciousIP can work together to automate early detection and contextual interpretation of suspicious activity — no code required, and no analyst left in the dark.
