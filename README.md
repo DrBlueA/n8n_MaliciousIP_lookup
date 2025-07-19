@@ -38,7 +38,7 @@ Once triggered, the flow continues with data parsing, enrichment, risk evaluatio
 
 ## 🧭 Workflow Overview
 
-![Workflow Diagram](./workflow.png)
+![Workflow Diagram](./Workflow.png)
 
 
 ---
